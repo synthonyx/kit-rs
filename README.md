@@ -6,6 +6,6 @@ This kit provides all the tools for implementation of the Synthonyx Rust idiomat
 
 ## Licensing
 
-Copyright (c) 2024, [Synthonyx Technologies Ltd](https://synthonyx.com).
+Copyright (c) 2024-2025, [Synthonyx Technologies Ltd](https://synthonyx.com).
 
 This SDK is dual-licensed under the terms of the Apache License, Version 2.0 and the MIT license. Choose the one that best fits your needs.
