@@ -157,7 +157,9 @@ mod tests {
     #[test]
     fn env_param_getter_works() {
         // Set an environment variable to make sure the demo won't fail.
-        std::env::set_var("MY_ENV_VAR", "Hello, World!");
+        unsafe {
+            std::env::set_var("MY_ENV_VAR", "Hello, World!");
+        }
         env_param!(Q, String, "MY_ENV_VAR");
         assert_eq!(Q::get(), "Hello, World!".to_string());
     }
