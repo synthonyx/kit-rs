@@ -81,7 +81,8 @@ macro_rules! env_param {
         impl $crate::traits::get::Get<$type> for $name {
             fn get() -> $type {
                 // Load environment variables from .env file
-                dotenv::dotenv().ok();
+                // TODO: Removed over security issues, find an alternative.
+                // dotenv::dotenv().ok();
 
                 // Get the API key from the environment variable
                 let res = std::env::var($var).expect("$var must be set");

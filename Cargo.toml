@@ -1,11 +1,10 @@
 [package]
 name = "synthonyx-kit"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
 argon2 = { version = "0.5.3", features = ["std", "rand"] }
-dotenv = "0.14.0"
 serde = { version = "1.0.219", features = ["derive"], optional = true }
 
 [dev-dependencies]
@@ -13,7 +12,6 @@ serde_json = "1.0.140"
 
 # Create a feature called serde
 [features]
+default = []
 serde = ["dep:serde"]
-
-# Set the default features to empty and include the serde dependency as a part of this feature.
-default-features = []
+all = ["serde"]
