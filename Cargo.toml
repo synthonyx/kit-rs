@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 argon2 = { version = "0.5.3", features = ["std", "rand"] }
-dotenv = "0.14.1"
+dotenv = "0.14.0"
 serde = { version = "1.0.219", features = ["derive"], optional = true }
 
 [dev-dependencies]
