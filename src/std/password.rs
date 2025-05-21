@@ -95,6 +95,12 @@ impl PasswordChecker for Argon2Password {
 }
 
 impl Argon2Password {
+    pub fn new(password: impl Into<String>) -> Result<Self, PasswordError> {
+        let p = Argon2Password(Arc::new(Mutex::<String>::default()));
+        p.hash(password.into())?;
+        Ok(p)
+    }
+
     /// Returns the inner password hash as a `String`.
     pub fn to_inner(&self) -> String {
         self.0.lock().unwrap().clone()
