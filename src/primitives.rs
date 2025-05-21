@@ -21,11 +21,8 @@
 ///
 /// // Define a struct `MyStringParam` that implements `Get<String>` and returns the value "Hello, World!"
 /// param!(MyStringParam, String, "Hello, World!");
-///
-/// fn main() {
-///     let value_string = MyStringParam::get();
-///     println!("Value (String): {}", value_string); // Output: Value (String): Hello, World!
-/// }
+/// let value_string = MyStringParam::get();
+/// println!("Value (String): {}", value_string); // Output: Value (String): Hello, World!
 /// ```
 ///
 /// # Notes
@@ -66,13 +63,11 @@ macro_rules! param {
 ///
 /// env_param!(MyEnvParam, String, "MY_ENV_VAR");
 ///
-/// fn main() {
-///     // Set an environment variable to make sure the demo won't fail.
-///     std::env::set_var("MY_ENV_VAR", "Hello, World!");
+/// // Set an environment variable to make sure the demo won't fail.
+/// std::env::set_var("MY_ENV_VAR", "Hello, World!");
 ///
-///     let env_value = MyEnvParam::get();
-///     println!("Value (String): {}", env_value); // Output: Value (String): Hello, World!
-/// }
+/// let env_value = MyEnvParam::get();
+/// println!("Value (String): {}", env_value); // Output: Value (String): Hello, World!
 /// ```
 ///
 /// # Notes
@@ -145,7 +140,7 @@ mod tests {
         assert_eq!(ConstU128::<42>::get(), 42);
         assert_eq!(ConstUsize::<42>::get(), 42);
 
-        assert_eq!(ConstBool::<true>::get(), true);
+        assert!(ConstBool::<true>::get());
     }
 
     #[test]
