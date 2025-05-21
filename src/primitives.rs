@@ -63,8 +63,8 @@ macro_rules! param {
 ///
 /// env_param!(MyEnvParam, String, "MY_ENV_VAR");
 ///
-/// // Set an environment variable to make sure the demo won't fail.
-/// std::env::set_var("MY_ENV_VAR", "Hello, World!");
+/// // Set an environment variable to make sure the example won't fail.
+/// unsafe { std::env::set_var("MY_ENV_VAR", "Hello, World!"); }
 ///
 /// let env_value = MyEnvParam::get();
 /// println!("Value (String): {}", env_value); // Output: Value (String): Hello, World!

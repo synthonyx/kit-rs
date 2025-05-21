@@ -8,7 +8,7 @@ use argon2::{
     Argon2
 };
 
-use crate::traits::password::{PasswordChecker, PasswordError, PasswordHasher};
+use crate::traits::password::{PasswordChecker, PasswordError};
 
 /// Hashes a given password using the default settings for Argon2id (v19).
 ///
@@ -57,28 +57,6 @@ impl From<argon2::password_hash::Error> for PasswordError {
 #[derive(Clone, Debug)]
 pub struct Argon2Password(Arc<Mutex<String>>);
 
-impl PasswordHasher for Argon2Password {
-    /// The type of passwords we're working with (in this case, `String`s).
-    type Password = String;
-
-    /// Hashes a given password using the current implementation's settings.
-    ///
-    /// # Errors
-    ///
-    /// Returns an error if there's an issue modifying the stored hash or hashing the password itself.
-    fn hash(&self, password: Self::Password) -> Result<(), PasswordError> {
-        let mut password_hash = self.0.lock().map_err(|e| PasswordError::Other(e.to_string()))?;
-        
-        // Hash the password using the default settings and store it in the `Mutex`.
-        if let Ok(hash) = hash_password(password) {
-            *password_hash = hash;
-            Ok(())
-        } else {
-            Err(PasswordError::Other("Failed to hash password".to_string()))
-        }
-    }
-}
-
 impl PasswordChecker for Argon2Password {
     /// The type of passwords we're working with (in this case, `String`s).
     type Password = String;
@@ -96,9 +74,7 @@ impl PasswordChecker for Argon2Password {
 
 impl Argon2Password {
     pub fn new(password: impl Into<String>) -> Result<Self, PasswordError> {
-        let p = Argon2Password(Arc::new(Mutex::<String>::default()));
-        p.hash(password.into())?;
-        Ok(p)
+        Ok(Argon2Password(Arc::new(Mutex::<String>::new(hash_password(password.into())?))))
     }
 
     /// Returns the inner password hash as a `String`.
@@ -135,7 +111,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_hash_password() {
+    fn test_password() {
         let password = "mysecretpassword".to_string();
         let hash = hash_password(password.clone()).unwrap();
 
@@ -143,24 +119,13 @@ mod tests {
 
         let argon2_password = Argon2Password(Arc::new(Mutex::new(hash)));
         assert!(argon2_password.verify(password).is_ok());
-    }
-
-    #[test]
-    fn test_verify_password() {
-        let password = "mysecretpassword".to_string();
-        let hash = hash_password(password.clone()).unwrap();
-
-        let argon2_password = Argon2Password(Arc::new(Mutex::new(hash)));
-        assert!(argon2_password.verify(password).is_ok());
-
-        let wrong_password = "wrongpassword".to_string();
-        assert!(!argon2_password.verify(wrong_password).unwrap());
+        assert!(!argon2_password.verify("wrongpassword".into()).unwrap());
     }
 
     #[test]
     fn test_serialization() {
         let password = "mysecretpassword".to_string();
-        let argon2_password = Argon2Password(Arc::new(Mutex::new(hash_password(password).unwrap())));
+        let argon2_password = Argon2Password::new(password.clone()).expect("Expected to be able to crate a new hashed password");
         let serialized = serde_json::to_string(&argon2_password).unwrap();
 
         let deserialized: Argon2Password = serde_json::from_str(&serialized).unwrap();
