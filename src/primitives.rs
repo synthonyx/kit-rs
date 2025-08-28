@@ -61,7 +61,7 @@ macro_rules! param {
 /// use synthonyx_kit::env_param;
 /// use synthonyx_kit::traits::get::Get;
 ///
-/// env_param!(MyEnvParam, String, "MY_ENV_VAR");
+/// env_param!(MyEnvParam = "MY_ENV_VAR");
 ///
 /// // Set an environment variable to make sure the example won't fail.
 /// unsafe { std::env::set_var("MY_ENV_VAR", "Hello, World!"); }
@@ -76,17 +76,29 @@ macro_rules! param {
 /// - The macro generates a public struct, so the struct and its `get` method are accessible outside the module.
 #[macro_export]
 macro_rules! env_param {
-    ($name:ident, $type:ty, $var:expr) => {
+    ($name:ident = $var:literal) => {
         pub struct $name;
-        impl $crate::traits::get::Get<$type> for $name {
-            fn get() -> $type {
+        impl $crate::traits::get::Get<String> for $name {
+            fn get() -> String {
                 // Load environment variables from .env file
                 // TODO: Removed over security issues, find an alternative.
                 // dotenv::dotenv().ok();
 
-                // Get the API key from the environment variable
-                let res = std::env::var($var).expect("$var must be set");
-                res.into()
+                // Get the key from the environment variable
+                std::env::var($var).expect("$var must be set")
+            }
+        }
+    };
+    ($name:ident = $var:literal or $or:expr) => {
+        pub struct $name;
+        impl $crate::traits::get::Get<String> for $name {
+            fn get() -> String {
+                // Load environment variables from .env file
+                // TODO: Removed over security issues, find an alternative.
+                // dotenv::dotenv().ok();
+
+                // Get the key from the environment variable
+                std::env::var($var).unwrap_or_else(|_| $or.into())
             }
         }
     };
@@ -156,7 +168,10 @@ mod tests {
         unsafe {
             std::env::set_var("MY_ENV_VAR", "Hello, World!");
         }
-        env_param!(Q, String, "MY_ENV_VAR");
+        env_param!(Q = "MY_ENV_VAR");
         assert_eq!(Q::get(), "Hello, World!".to_string());
+
+        env_param!(X = "BOGUS_ENV_VAR" or "DEFAULT");
+        assert_eq!(X::get(), "DEFAULT");
     }
 }
