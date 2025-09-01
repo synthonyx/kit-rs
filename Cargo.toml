@@ -1,7 +1,13 @@
 [package]
 name = "synthonyx-kit"
 version = "0.1.4"
+authors = ["Synthonyx Technologies Ltd <opensource@synthonyx.com>"]
 edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "This kit provides all the tools for implementation of the Synthonyx Rust idiomatics."
+repository = "https://github.com/synthonyx/kit-rs"
+readme = "README.md"
+categories = ["development-tools"]
 
 [dependencies]
 argon2 = { version = "0.5.3", features = ["std", "rand"] }
