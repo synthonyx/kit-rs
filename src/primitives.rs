@@ -20,7 +20,7 @@
 /// use synthonyx_kit::traits::get::Get;
 ///
 /// // Define a struct `MyStringParam` that implements `Get<String>` and returns the value "Hello, World!"
-/// param!(MyStringParam, String, "Hello, World!");
+/// param!(MyStringParam: String = "Hello, World!");
 /// let value_string = MyStringParam::get();
 /// println!("Value (String): {}", value_string); // Output: Value (String): Hello, World!
 /// ```
@@ -31,7 +31,7 @@
 /// - The macro generates a public struct, so the struct and its `get` method are accessible outside the module.
 #[macro_export]
 macro_rules! param {
-    ($name:ident, $type:ty, $value:expr) => {
+    ($name:ident: $type:ty = $value:expr) => {
         pub struct $name;
         impl $crate::traits::get::Get<$type> for $name {
             fn get() -> $type {
@@ -158,7 +158,7 @@ mod tests {
 
     #[test]
     fn param_getter_works() {
-        param!(S, String, "Hello");
+        param!(S: String = "Hello");
         assert_eq!(S::get(), "Hello".to_string());
     }
 
