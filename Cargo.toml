@@ -1,6 +1,6 @@
 [package]
 name = "synthonyx-kit"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["Synthonyx Technologies Ltd <opensource@synthonyx.com>"]
 edition = "2024"
 license = "MIT OR Apache-2.0"
@@ -11,11 +11,11 @@ categories = ["development-tools"]
 
 [dependencies]
 argon2 = { version = "0.5.3", features = ["std", "rand"] }
-serde = { version = "1.0.219", features = ["derive"], optional = true }
-thiserror = "2.0.16"
+serde = { version = "1.0.228", features = ["derive"], optional = true }
+thiserror = "2.0.17"
 
 [dev-dependencies]
-serde_json = "1.0.143"
+serde_json = "1.0.148"
 
 # Create a feature called serde
 [features]

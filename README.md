@@ -12,8 +12,8 @@ This SDK is dual-licensed under the terms of the Apache License, Version 2.0 and
 
 ## Using this crate
 
-For now this crate isn't published at crates.io and it has to be used by adding a git dependency in Cargo.toml:
+Just add the crate as a dependency in Cargo.toml:
 ```toml
 [dependencies]
-synthonyx-kit = { version = "v0.1.4", features = ["serde"] }
+synthonyx-kit = { version = "v0.1.6", features = ["serde"] }
 ```
