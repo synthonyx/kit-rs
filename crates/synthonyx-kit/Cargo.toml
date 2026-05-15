@@ -1,0 +1,40 @@
+[package]
+name = "synthonyx-kit"
+description = "Synthonyx Kit: a development kit for building EU-compliance-grade (web) services in Rust around a modular runtime architecture."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+synthonyx-kit-core.workspace = true
+synthonyx-kit-primitives.workspace = true
+synthonyx-kit-storage = { workspace = true, optional = true }
+synthonyx-kit-audit = { workspace = true, optional = true }
+synthonyx-kit-compliance = { workspace = true, optional = true }
+synthonyx-kit-tracing = { workspace = true, optional = true }
+synthonyx-kit-password = { workspace = true, optional = true }
+
+[dev-dependencies]
+thiserror.workspace = true
+
+[[example]]
+name = "manual_runtime"
+required-features = ["audit"]
+
+[features]
+default = ["audit", "compliance", "storage", "tracing", "password"]
+
+audit = ["dep:synthonyx-kit-audit"]
+compliance = ["dep:synthonyx-kit-compliance", "dep:synthonyx-kit-storage"]
+storage = ["dep:synthonyx-kit-storage"]
+tracing = ["dep:synthonyx-kit-tracing"]
+password = ["dep:synthonyx-kit-password"]
+
+serde = ["synthonyx-kit-core/serde", "synthonyx-kit-password?/serde"]
+
+all = ["audit", "compliance", "storage", "tracing", "password", "serde"]

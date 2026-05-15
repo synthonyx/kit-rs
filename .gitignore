@@ -1,1 +1,56 @@
+# Rust build artifacts
 /target
+**/target
+**/*.rs.bk
+*.profraw
+*.profdata
+
+# Editor / IDE noise
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+
+# AI tooling artifacts (NEVER commit, NEVER reference in README/docs)
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+COPILOT.md
+.cursorrules
+.cursorignore
+.cursor/
+.claude/
+.claude-code/
+.opencode/
+.opencode-cache/
+.aider*
+.aiderignore
+.windsurf/
+.windsurfrules
+.continue/
+.codeium/
+.tabnine/
+.sourcegraph/
+.cody/
+.zed/.ai/
+.github/copilot-*
+.devin/
+.replit_ai/
+.roo/
+.roorules
+.clinerules*
+
+# Local env
+.env
+.env.*
+!.env.example
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+tarpaulin-report.html
+lcov.info

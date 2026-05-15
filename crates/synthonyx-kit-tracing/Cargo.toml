@@ -1,0 +1,20 @@
+[package]
+name = "synthonyx-kit-tracing"
+description = "W3C trace-context propagation and opinionated tracing integration for the Synthonyx Kit."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+synthonyx-kit-core.workspace = true
+tracing.workspace = true
+tokio = { workspace = true, features = ["rt", "macros"] }
+http.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

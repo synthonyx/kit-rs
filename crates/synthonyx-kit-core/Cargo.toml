@@ -1,0 +1,28 @@
+[package]
+name = "synthonyx-kit-core"
+description = "Kernel traits for the Synthonyx Kit: Get, Config, Dispatch, Origin, Event, Hooks, Time, Secret, Pii, AuditLogger, CorrelationId."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+thiserror.workspace = true
+zeroize.workspace = true
+trait-variant.workspace = true
+serde = { workspace = true, optional = true }
+
+[dev-dependencies]
+serde = { workspace = true }
+serde_json.workspace = true
+static_assertions.workspace = true
+trybuild.workspace = true
+proptest.workspace = true
+
+[features]
+default = []
+serde = ["dep:serde"]

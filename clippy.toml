@@ -1,0 +1,6 @@
+msrv = "1.85"
+avoid-breaking-exported-api = false
+disallowed-methods = [
+    { path = "std::env::set_var", reason = "test-only; production code should pass values via Config::Time / Get<T>" },
+    { path = "std::time::SystemTime::now", reason = "inject a TimeSource via Config::Time so timestamps are testable" },
+]

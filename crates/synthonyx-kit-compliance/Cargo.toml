@@ -1,0 +1,20 @@
+[package]
+name = "synthonyx-kit-compliance"
+description = "EU-compliance type taxonomy for the Synthonyx Kit (DORA, GDPR, NIS2, eIDAS 2.0)."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+synthonyx-kit-core.workspace = true
+synthonyx-kit-storage.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

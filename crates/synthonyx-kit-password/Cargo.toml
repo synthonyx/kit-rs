@@ -1,0 +1,24 @@
+[package]
+name = "synthonyx-kit-password"
+description = "Password hashing and verification traits for the Synthonyx Kit, with an Argon2id reference implementation."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+synthonyx-kit-core.workspace = true
+argon2.workspace = true
+thiserror.workspace = true
+serde = { workspace = true, optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[features]
+default = []
+serde = ["dep:serde", "synthonyx-kit-core/serde"]

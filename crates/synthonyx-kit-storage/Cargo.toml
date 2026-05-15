@@ -1,0 +1,17 @@
+[package]
+name = "synthonyx-kit-storage"
+description = "Backend-agnostic storage abstraction for the Synthonyx Kit, with compliance hooks (encryption-at-rest, retention, erasure)."
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+synthonyx-kit-core.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+trait-variant.workspace = true

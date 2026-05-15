@@ -1,0 +1,16 @@
+[package]
+name = "compliance-matrix-test"
+description = "Internal: verifies docs/compliance.md stays in sync with the compliance/proptest test files on disk."
+publish = false
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+regex.workspace = true

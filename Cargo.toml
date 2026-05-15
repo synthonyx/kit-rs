@@ -1,24 +1,53 @@
-[package]
-name = "synthonyx-kit"
-version = "0.1.6"
+[workspace]
+resolver = "3"
+members = [
+    "crates/synthonyx-kit",
+    "crates/synthonyx-kit-core",
+    "crates/synthonyx-kit-primitives",
+    "crates/synthonyx-kit-storage",
+    "crates/synthonyx-kit-audit",
+    "crates/synthonyx-kit-compliance",
+    "crates/synthonyx-kit-tracing",
+    "crates/synthonyx-kit-password",
+    "crates/synthonyx-kit-macros",
+    "crates/compliance-matrix-test",
+]
+
+[workspace.package]
+version = "0.2.0"
 authors = ["Synthonyx Technologies Ltd <opensource@synthonyx.com>"]
 edition = "2024"
+rust-version = "1.85"
 license = "MIT OR Apache-2.0"
-description = "This kit provides all the tools for implementation of the Synthonyx Rust idiomatics."
 repository = "https://github.com/synthonyx/kit-rs"
-readme = "README.md"
 categories = ["development-tools"]
 
-[dependencies]
-argon2 = { version = "0.5.3", features = ["std", "rand"] }
-serde = { version = "1.0.228", features = ["derive"], optional = true }
-thiserror = "2.0.17"
+[workspace.dependencies]
+# Internal workspace crates
+synthonyx-kit-core = { version = "0.2.0", path = "crates/synthonyx-kit-core" }
+synthonyx-kit-primitives = { version = "0.2.0", path = "crates/synthonyx-kit-primitives" }
+synthonyx-kit-storage = { version = "0.2.0", path = "crates/synthonyx-kit-storage" }
+synthonyx-kit-audit = { version = "0.2.0", path = "crates/synthonyx-kit-audit" }
+synthonyx-kit-compliance = { version = "0.2.0", path = "crates/synthonyx-kit-compliance" }
+synthonyx-kit-tracing = { version = "0.2.0", path = "crates/synthonyx-kit-tracing" }
+synthonyx-kit-password = { version = "0.2.0", path = "crates/synthonyx-kit-password" }
+synthonyx-kit-macros = { version = "0.2.0", path = "crates/synthonyx-kit-macros" }
 
-[dev-dependencies]
-serde_json = "1.0.148"
+# External
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+zeroize = { version = "1", features = ["derive"] }
+blake3 = "1"
+trait-variant = "0.1"
+tracing = "0.1"
+tokio = { version = "1", default-features = false }
+http = "1"
+argon2 = { version = "0.5", features = ["std", "rand"] }
+hex = "0.4"
 
-# Create a feature called serde
-[features]
-default = []
-serde = ["dep:serde"]
-all = ["serde"]
+# Test-only
+proptest = "1"
+trybuild = "1"
+static_assertions = "1.1"
+regex = "1"
